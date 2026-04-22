@@ -7,6 +7,7 @@ import App from './app/App';
 import {TasksPage} from "@/app/pages/TasksPage.tsx";
 import {NotesPage} from "@/app/pages/NotesPage.tsx";
 import {HomePage} from "@/app/pages/HomePage.tsx";
+import {AgronomyPage} from "@/app/pages/AgronomyPage.tsx";
 
 const useApplyTheme = () => {
     const isDark = useThemeStore(state => state.isDark);
@@ -18,20 +19,20 @@ const useApplyTheme = () => {
 
 const queryClient = new QueryClient();
 
-// 🔹 Роутер с вложенными маршрутами
+
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <App />, // App содержит навбар + <Outlet />
+        element: <App />,
         children: [
             { index: true, element: <HomePage /> },
             { path: 'tasks', element: <TasksPage /> },
             { path: 'notes', element: <NotesPage /> },
+            { path: 'agronomy', element: <AgronomyPage /> },
         ],
     },
 ]);
 
-// 🔹 Экспортированный Root — фикс для ESLint
 export function Root() {
     useApplyTheme();
 
@@ -42,7 +43,6 @@ export function Root() {
     );
 }
 
-// 🔹 Рендер
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <Root />
