@@ -16,7 +16,7 @@ const queryClient = new QueryClient({
     },
 });
 
-function Root() {
+export function Root() {
     const isDark = useThemeStore(state => state.isDark);
 
     useEffect(() => {

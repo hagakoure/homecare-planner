@@ -1,7 +1,7 @@
 ﻿import  { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from 'react-router-dom';
-import { useThemeStore } from '@/store/useThemeStore';
+import { useThemeStore } from '@/shared/lib/stores/useThemeStore';
 import { router } from './router.js';
 
 const queryClient = new QueryClient();
