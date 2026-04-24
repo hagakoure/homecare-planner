@@ -3,4 +3,5 @@
 export interface MaintenanceTaskCardProps {
     task: MaintenanceTask;
     onEdit: () => void;
+    
 }

@@ -1,13 +1,15 @@
-﻿import { MaintenanceTaskCard } from '@/entities/task/ui/MaintenanceTaskCard';
-import { useMaintenanceTasks } from '@/entities/task/api/useMaintenanceTasks';
-import { TaskFormDialog } from '@/features/maintenance-tasks/components/TaskFormDialog';
-import { useTaskFormStore } from '@/shared/lib/stores/useTaskFormStore';
-
-
+﻿import {MaintenanceTaskCard} from '@/entities/task/ui/MaintenanceTaskCard';
+import {useMaintenanceTasks} from '@/entities/task/api/useMaintenanceTasks';
+import {TaskFormDialog} from '@/features/maintenance-tasks/components/TaskFormDialog';
+import {useTaskFormStore} from '@/shared/lib/stores/useTaskFormStore';
+import {useUrgentTasks} from '@/entities/task/api/useUrgentTasks';
 
 export const TasksPage = () => {
-    const {  data } = useMaintenanceTasks();
+    const {data} = useMaintenanceTasks();
     const isOpen = useTaskFormStore((state) => state.isOpen);
+    const {tasks} = useTasks();
+    const {urgentTasks} = useUrgentTasks();
+    const urgentIds = new Set(urgentTasks?.map(t => t.id) ?? []);
 
     return (
         <div className="p-6 max-w-4xl mx-auto">
@@ -35,7 +37,7 @@ export const TasksPage = () => {
                 <p className="text-gray-500 dark:text-gray-400">Нет задач</p>
             )}
 
-            {isOpen && <TaskFormDialog />}
+            {isOpen && <TaskFormDialog/>}
         </div>
     );
 };

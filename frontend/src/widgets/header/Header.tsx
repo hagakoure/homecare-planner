@@ -1,5 +1,6 @@
 ﻿import {useState, useEffect, useRef} from 'react';
 import {useThemeStore} from '@/shared/lib/stores/useThemeStore';
+import {useUrgentTasks} from '@/entities/task/api/useUrgentTasks';
 
 export function Header() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -19,8 +20,11 @@ export function Header() {
 
     const toggleProfile = () => setIsProfileOpen(prev => !prev);
 
+    const {urgentTasks} = useUrgentTasks();
+    const urgentCount = urgentTasks?.length ?? 0;
     return (
-        <header className="sticky top-0 z-40 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 shadow-sm transition-colors duration-200">
+        <header
+            className="sticky top-0 z-40 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 shadow-sm transition-colors duration-200">
             <div className="container mx-auto flex h-16 items-center justify-between px-4">
                 {/* Логотип */}
                 <div className="flex items-center gap-2">
@@ -60,8 +64,8 @@ export function Header() {
                         type="button"
                         onClick={toggleTheme}
                         className="rounded-full p-2 
-    text-gray-600 dark:text-gray-300 
-    hover:bg-gray-100 dark:hover:bg-gray-800"
+                        text-gray-600 dark:text-gray-300 
+                        hover:bg-gray-100 dark:hover:bg-gray-800"
                         aria-label={isDark ? 'Переключить на светлую тему' : 'Переключить на тёмную тему'}
                         title={isDark ? 'Светлая тема' : 'Тёмная тема'}
                     >
@@ -71,15 +75,23 @@ export function Header() {
                     {/* Уведомления */}
                     <button
                         type="button"
-                        className="relative rounded-full p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-50"
+                        className="relative rounded-full p-2 text-gray-600 hover:bg-gray-100 
+    dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
                         aria-label="Уведомления"
                     >
-                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round"
+                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                                   d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
                         </svg>
-                        <span
-                            className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white dark:ring-gray-900"/>
+
+                        {/* Бейдж с количеством */}
+                        {urgentCount > 0 && (
+                            <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center 
+      rounded-full bg-red-500 text-[10px] font-bold text-white ring-2 ring-white dark:ring-gray-900"
+                            >
+      {urgentCount > 9 ? '9+' : urgentCount}
+    </span>
+                        )}
                     </button>
 
                     {/* Профиль */}
