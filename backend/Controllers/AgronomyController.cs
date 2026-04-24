@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace HomeCarePlanner.Controllers;
+namespace HomeCarePlanner.Backend.Controllers;
 
 public record AgronomyRecommendation(string Action, string Crop, int StartDay, int EndDay);
 

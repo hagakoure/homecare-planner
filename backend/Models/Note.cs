@@ -1,4 +1,4 @@
-﻿namespace HomeCarePlanner.Models;
+﻿namespace HomeCarePlanner.Backend.Models;
 
 public record Note(
     string Id,
@@ -6,10 +6,4 @@ public record Note(
     string Content,
     List<NoteTodo> Todos,
     string CreatedAt
-);
-
-public record NoteTodo(
-    string Id,
-    string Text,
-    bool Completed
 );

@@ -1,7 +1,7 @@
-﻿using HomeCarePlanner.Models;
+﻿using HomeCarePlanner.Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HomeCarePlanner.Controllers;
+namespace HomeCarePlanner.Backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

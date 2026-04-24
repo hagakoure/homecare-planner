@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace HomeCarePlanner.Controllers;
+namespace HomeCarePlanner.Backend.Controllers;
 
 public record WeatherForecast(string Date, int TemperatureC, string Summary);
 

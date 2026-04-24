@@ -1,4 +1,4 @@
-﻿namespace HomeCarePlanner.Models;
+﻿namespace HomeCarePlanner.Backend.Models;
 
 public record MaintenanceTask(
     string Id,
