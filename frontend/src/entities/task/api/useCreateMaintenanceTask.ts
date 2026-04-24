@@ -1,5 +1,5 @@
 ﻿import { useMutation, useQueryClient } from '@tanstack/react-query';
-import type { MaintenanceTask } from '@/core/types/MaintenanceTask';
+import type { MaintenanceTask } from '@/entities/task/model/types';
 
 type NewMaintenanceTask = Omit<MaintenanceTask, 'id'>;
 
@@ -21,8 +21,7 @@ export const useCreateMaintenanceTask = () => {
             });
 
             if (!res.ok) throw new Error('Failed to create task');
-
-            // ✅ Безопасное приведение через unknown
+            
             const data = await res.json();
             return data as MaintenanceTask;
         },

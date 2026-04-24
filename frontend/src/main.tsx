@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import { RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { RouterProvider } from 'react-router-dom';
 import { router } from './app/router';
 import { ThemeProvider } from './app/providers/ThemeProvider';
+import { useThemeStore } from '@/shared/lib/stores/useThemeStore';
 
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            staleTime: 1000 * 60 * 5, // 5 минут
+            staleTime: 1000 * 60 * 5,
             retry: 1,
             refetchOnWindowFocus: false,
         },
@@ -16,9 +17,22 @@ const queryClient = new QueryClient({
 });
 
 function Root() {
+    const isDark = useThemeStore(state => state.isDark);
+
+    useEffect(() => {
+        const root = document.documentElement;
+        if (isDark) {
+            root.classList.add('dark');
+            root.style.colorScheme = 'dark';
+        } else {
+            root.classList.remove('dark');
+            root.style.colorScheme = 'light';
+        }
+    }, [isDark]);
+
     return (
         <QueryClientProvider client={queryClient}>
-            <ThemeProvider> {/* ← вся логика dark mode здесь */}
+            <ThemeProvider>
                 <RouterProvider router={router} />
             </ThemeProvider>
         </QueryClientProvider>

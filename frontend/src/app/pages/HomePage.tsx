@@ -1,4 +1,5 @@
-﻿import { WeatherWidget } from '@/features/weather/components/WeatherWidget';
+﻿
+import { WeatherWidget } from '@/features/weather/components/WeatherWidget';
 
 export function HomePage() {
     return (
@@ -15,4 +16,4 @@ export function HomePage() {
             </p>
         </div>
     );
-};
+}
