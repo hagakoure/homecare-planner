@@ -1,8 +1,7 @@
-﻿// src/app/pages/NotesPage.tsx
-import {NoteCard} from '@/features/notes/components/NoteCard';
-import {useNotes} from '@/features/notes/hooks/useNotes';
-import {NoteFormDialog} from '@/features/notes/components/NoteFormDialog';
-import {useTaskFormStore} from '@/store/useTaskFormStore';
+﻿import {NoteCard} from '@/entities/note/ui/NoteCard';
+import {useNotes} from '@/entities/note/api/useNotes';
+import {NoteFormDialog} from '@/entities/note/ui/NoteFormDialog';
+import {useTaskFormStore} from '@/shared/lib/stores/useTaskFormStore';
 
 export const NotesPage = () => {
     

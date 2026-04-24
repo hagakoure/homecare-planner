@@ -1,6 +1,6 @@
 ﻿import { WeatherWidget } from '@/features/weather/components/WeatherWidget';
 
-export const HomePage = () => {
+export function HomePage() {
     return (
         <div className="p-6 max-w-4xl mx-auto">
             <h1 className="text-3xl font-bold mb-6">Добро пожаловать в HomeCare Planner!</h1>

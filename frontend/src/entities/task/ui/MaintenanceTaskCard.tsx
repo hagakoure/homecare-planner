@@ -1,7 +1,7 @@
 ﻿import {useMemo} from 'react';
-import {getTaskStatus} from '@/core/utils/getTaskStatus';
 import type {MaintenanceTaskCardProps} from "@/features/maintenance-tasks/types.ts";
-import {useDeleteMaintenanceTask} from "@/features/maintenance-tasks/hooks/useDeleteMaintenanceTask.ts";
+import {getTaskStatus} from "@/shared/lib/getTaskStatus";
+import {useDeleteMaintenanceTask} from "@/entities/task/api/useDeleteMaintenanceTask";
 
 export const MaintenanceTaskCard = ({task, onEdit}: MaintenanceTaskCardProps) => {
     const nextDue = useMemo(() => {
@@ -10,7 +10,7 @@ export const MaintenanceTaskCard = ({task, onEdit}: MaintenanceTaskCardProps) =>
         date.setDate(date.getDate() + task.intervalDays);
         return date.toISOString().split('T')[0]; // YYYY-MM-DD
     }, [task.lastReplacement, task.intervalDays]);
-    
+
     const deleteMutation = useDeleteMaintenanceTask();
     const handleDelete = () => {
         if (confirm(`Удалить задачу "${task.title}"?`)) {

@@ -1,6 +1,5 @@
-﻿// src/features/notes/hooks/useNotes.ts
-import { useQuery } from '@tanstack/react-query';
-import type { Note } from '@/core/types/Note';
+﻿import { useQuery } from '@tanstack/react-query';
+import type { Note } from '@/entities/note/model/types';
 
 export const useNotes = () => {
     return useQuery<Note[]>({

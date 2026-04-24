@@ -1,5 +1,5 @@
 ﻿import {useState} from 'react';
-import {useAgronomy} from '@/features/agronomy/hooks/useAgronomy';
+import {useAgronomy} from '@/entities/agronomy/api/useAgronomy';
 
 const regions = ['central', 'south', 'north', 'ural'];
 const months = [

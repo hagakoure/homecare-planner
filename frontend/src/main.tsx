@@ -1,44 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { useThemeStore } from '@/store/useThemeStore';
-import App from './app/App';
-import {TasksPage} from "@/app/pages/TasksPage.tsx";
-import {NotesPage} from "@/app/pages/NotesPage.tsx";
-import {HomePage} from "@/app/pages/HomePage.tsx";
-import {AgronomyPage} from "@/app/pages/AgronomyPage.tsx";
+import { router } from './app/router';
+import { ThemeProvider } from './app/providers/ThemeProvider';
 
-const useApplyTheme = () => {
-    const isDark = useThemeStore(state => state.isDark);
-
-    React.useEffect(() => {
-        document.documentElement.classList.toggle('dark', isDark);
-    }, [isDark]);
-};
-
-const queryClient = new QueryClient();
-
-
-const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <App />,
-        children: [
-            { index: true, element: <HomePage /> },
-            { path: 'tasks', element: <TasksPage /> },
-            { path: 'notes', element: <NotesPage /> },
-            { path: 'agronomy', element: <AgronomyPage /> },
-        ],
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: 1000 * 60 * 5, // 5 минут
+            retry: 1,
+            refetchOnWindowFocus: false,
+        },
     },
-]);
+});
 
-export function Root() {
-    useApplyTheme();
-
+function Root() {
     return (
         <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
+            <ThemeProvider> {/* ← вся логика dark mode здесь */}
+                <RouterProvider router={router} />
+            </ThemeProvider>
         </QueryClientProvider>
     );
 }
@@ -46,5 +28,5 @@ export function Root() {
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <Root />
-    </React.StrictMode>,
+    </React.StrictMode>
 );

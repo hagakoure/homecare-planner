@@ -1,6 +1,6 @@
 ﻿import { useState } from 'react';
-import { useCreateNote } from '../hooks/useCreateNote';
-import { useTaskFormStore } from '@/store/useTaskFormStore';
+import { useCreateNote } from "@/entities/note/api/useCreateNote";
+import { useTaskFormStore } from "@/shared/lib/stores/useTaskFormStore";
 
 export const NoteFormDialog = () => {
     const { closeForm } = useTaskFormStore();
@@ -15,13 +15,13 @@ export const NoteFormDialog = () => {
     };
 
     const updateTodo = (index: number, text: string) => {
-        const updated = [...todos];
-        updated[index].text = text;
-        setTodos(updated);
+        setTodos(prev => prev.map((todo, i) =>
+            i === index ? { ...todo, text } : todo
+        ));
     };
 
     const removeTodo = (index: number) => {
-        setTodos(todos.filter((_, i) => i !== index));
+        setTodos(prev => prev.filter((_, i) => i !== index));
     };
 
     const handleSubmit = (e: React.FormEvent) => {

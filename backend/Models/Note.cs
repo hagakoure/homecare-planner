@@ -5,7 +5,7 @@ public record Note(
     string Title,
     string Content,
     List<NoteTodo> Todos,
-    string CreatedAt // ISO 8601
+    string CreatedAt
 );
 
 public record NoteTodo(

@@ -1,4 +1,4 @@
-﻿import type { Note } from '@/core/types/Note';
+﻿import type { Note } from '@/entities/note/model/types';
 
 export interface NoteCardProps {
     note: Note;

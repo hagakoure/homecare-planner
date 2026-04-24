@@ -1,5 +1,4 @@
-﻿// src/features/maintenance-tasks/hooks/useMaintenanceTasks.ts
-import { useQuery } from '@tanstack/react-query';
+﻿import { useQuery } from '@tanstack/react-query';
 import type { MaintenanceTask } from '@/core/types/MaintenanceTask';
 import type { RawMaintenanceTask } from '../types/RawMaintenanceTask';
 
