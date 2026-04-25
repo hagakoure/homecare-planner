@@ -1,4 +1,4 @@
-services:
+﻿services:
   postgres:
     image: postgres:16-alpine
     container_name: homecare-postgres
@@ -17,37 +17,22 @@ services:
       retries: 5
     networks:
       - homecare-net
+    restart: unless-stopped
 
-  # ASP.NET Backend
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: HomeCarePlanner.Backend/src/HomeCarePlanner.Api/Dockerfile
     container_name: homecare-backend
     ports:
       - "5282:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__DefaultConnection=Host=postgres;Database=homecare;Username=postgres;Password=postgres123
     depends_on:
       postgres:
         condition: service_healthy
-    networks:
-      - homecare-net
-    restart: unless-stopped
-
-  # React Frontend (опционально — можно запускать локально)
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: homecare-frontend
-    ports:
-      - "5173:5173"
-    environment:
-      - VITE_API_BASE_URL=http://backend:8080  # для общения внутри docker network
-    depends_on:
-      - backend
     networks:
       - homecare-net
     restart: unless-stopped
