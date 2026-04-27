@@ -4,5 +4,5 @@
     description: string | null;
     lastReplacement: string | null;
     intervalDays: number;
-    category: 'water-filter' | 'air-filter' | 'garden' | 'other';
+    category?: { id: string; name: string };
 }

@@ -9,7 +9,8 @@ public class GetUrgentTasksHandler : IRequestHandler<GetUrgentTasksQuery, IReadO
     private readonly IApplicationDbContext _context;
     public GetUrgentTasksHandler(IApplicationDbContext context) => _context = context;
 
-    public async Task<IReadOnlyList<UrgentTaskDto>> Handle(GetUrgentTasksQuery request, CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<UrgentTaskDto>> Handle(GetUrgentTasksQuery request,
+        CancellationToken cancellationToken)
     {
         var tasks = await _context.MaintenanceTasks
             .Where(t => t.LastReplacement != null)
@@ -24,7 +25,7 @@ public class GetUrgentTasksHandler : IRequestHandler<GetUrgentTasksQuery, IReadO
                 var daysLeft = (next.Date - today).Days;
                 return new
                 {
-                    t.Id, t.Title, t.Category, t.IntervalDays, t.LastReplacement,
+                    t.Id, t.Title, t.CategoryId, t.IntervalDays, t.LastReplacement,
                     NextReplacement = next.ToString("o"),
                     DaysLeft = daysLeft
                 };
@@ -34,7 +35,7 @@ public class GetUrgentTasksHandler : IRequestHandler<GetUrgentTasksQuery, IReadO
             .ToList();
 
         return urgent.Select(x => new UrgentTaskDto(
-            x.Id, x.Title, x.Category, x.IntervalDays, x.LastReplacement, x.NextReplacement, x.DaysLeft
+            x.Id, x.Title, x.CategoryId, x.IntervalDays, x.LastReplacement, x.NextReplacement, x.DaysLeft
         )).ToList();
     }
 }

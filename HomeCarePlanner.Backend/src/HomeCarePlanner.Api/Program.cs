@@ -35,10 +35,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    
+
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    db.Database.Migrate();  // миграции при старте
+    db.Database.Migrate(); // миграции при старте
 }
 
 app.UseSerilogRequestLogging();
@@ -48,6 +48,8 @@ app.UseRouting();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.MapNotesEndpoints();
 app.MapNotificationsEndpoints();
+app.MapCategoriesEndpoints();
+app.MapTasksEndpoints();
 app.MapHealthChecks("/health");
 if (app.Environment.IsDevelopment())
 {
